@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vipper.modelo.ClienteProveedor;
 import com.vipper.modelo.Pedido;
-
+import com.vipper.persistencia.AccesoClienteProveedor;
 import com.vipper.persistencia.AccesoPedido;
 
 /**
@@ -37,6 +38,7 @@ public class ServletFacturacion extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+		super.init(config);
 	}
 
 	/**
@@ -46,8 +48,10 @@ public class ServletFacturacion extends HttpServlet {
 	protected void service(HttpServletRequest r, HttpServletResponse response) throws ServletException, IOException {
 		int jopcion = Integer.parseInt(r.getParameter("op"));
 		AccesoPedido ap1 = null;
+		AccesoClienteProveedor acp1 = null;
 		RequestDispatcher rd = null;
 		Pedido jPedido = null;
+		ClienteProveedor jClienteProveedor = null;
 		switch (jopcion) {
 		case 1:
 			jPedido = (Pedido) r.getAttribute("p1");
@@ -60,7 +64,7 @@ public class ServletFacturacion extends HttpServlet {
 				System.out.println(e.toString());
 			}
 			// Se guarda el producto con los datos que se obtienen
-			// de la BBDD en el ámbito request
+			// de la BBDD en el ï¿½mbito request
 			r.setAttribute("p1", jPedido);
 			rd = r.getRequestDispatcher("/mostrarpedido.jsp");
 			rd.forward(r, response);
@@ -100,6 +104,24 @@ public class ServletFacturacion extends HttpServlet {
 			}
 	
 			break;
+		case 4:
+			jClienteProveedor = (ClienteProveedor) r.getAttribute("p1");
+			acp1 = new AccesoClienteProveedor();
+			try {
+				jClienteProveedor = acp1.mostrarUno(jClienteProveedor.getId());
+				System.out.println("Cliente o Proveedor de la BBDD" + jClienteProveedor.toString());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			// Se guarda el producto con los datos que se obtienen
+			// de la BBDD en el ï¿½mbito request
+			r.setAttribute("p1", jClienteProveedor);
+			rd = r.getRequestDispatcher("/mostrarclienteproveedor.jsp");
+			rd.forward(r, response);
+
+			break;
+			
 		
 					
 		default:

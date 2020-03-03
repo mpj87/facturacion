@@ -4,15 +4,15 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.vipper.modelo.ClienteProovedor;
+import com.vipper.modelo.ClienteProveedor;
 
-public class AccesoClienteProovedor extends Conexion{
+public class AccesoClienteProveedor extends Conexion{
 
-	public ClienteProovedor mostrarUno(int id) throws ClassNotFoundException, SQLException {
+	public ClienteProveedor mostrarUno(int id) throws ClassNotFoundException, SQLException {
 
-		String sql = "call facturacion.mostrarUnoClienteProovedor(?);";
+		String sql = "call facturacion.mostrarUnoClienteProveedor(?);";
 
-		ClienteProovedor uno = null;
+		ClienteProveedor uno = null;
 		CallableStatement st;
 		ResultSet rs;
 
@@ -27,16 +27,16 @@ public class AccesoClienteProovedor extends Conexion{
 		rs = st.executeQuery();
 		// recorremos el resulset
 		if (rs.next()) {
-			uno = new ClienteProovedor(rs.getInt("id"), rs.getString("nif"), rs.getString("nombre"), rs.getString("direccion"), rs.getString("tipo"), rs.getString("email"), rs.getInt("telefono"));
+			uno = new ClienteProveedor(rs.getInt("id"), rs.getString("nif"), rs.getString("nombre"), rs.getString("direccion"), rs.getString("tipo"), rs.getString("email"), rs.getInt("telefono"));
 		}
 		cerrarConexion();
 		return uno;
 
 	}
 	
-	public boolean altaCliente(ClienteProovedor clienteProovedor) throws ClassNotFoundException, SQLException {
+	public boolean altaCliente(ClienteProveedor clienteProveedor) throws ClassNotFoundException, SQLException {
 	
-		String sql = "call facturacion.altaClienteProovedor('?', '?', '?', '?', '?', ?);";
+		String sql = "call facturacion.altaClienteProveedor('?', '?', '?', '?', '?', ?);";
 		CallableStatement st;
 		int numRegistros;
 		
@@ -46,13 +46,13 @@ public class AccesoClienteProovedor extends Conexion{
 		// recoger el comando
 		st = miConexion.prepareCall(sql);
 		// Asignar valor al parametro
-		st.setInt(1,clienteProovedor.getId());
-        st.setString(2,clienteProovedor.getNif());
-        st.setString(3,clienteProovedor.getNombre());
-        st.setString(4,clienteProovedor.getDireccion());
-        st.setString(5,clienteProovedor.getTipo());
-        st.setString(6,clienteProovedor.getEmail());
-        st.setInt(7,clienteProovedor.getTelefono());
+		st.setInt(1,clienteProveedor.getId());
+        st.setString(2,clienteProveedor.getNif());
+        st.setString(3,clienteProveedor.getNombre());
+        st.setString(4,clienteProveedor.getDireccion());
+        st.setString(5,clienteProveedor.getTipo());
+        st.setString(6,clienteProveedor.getEmail());
+        st.setInt(7,clienteProveedor.getTelefono());
         
       //Ejecutar el comando
         numRegistros = st.executeUpdate();
@@ -62,7 +62,7 @@ public class AccesoClienteProovedor extends Conexion{
 	
 	public boolean bajaCliente(int id) throws ClassNotFoundException, SQLException {
 		
-		String sql = "call facturacion.bajaClienteProovedor(?);";
+		String sql = "call facturacion.bajaClienteProveedor(?);";
 		CallableStatement st;
 		int numRegistros;
 		

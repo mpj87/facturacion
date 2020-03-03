@@ -1,6 +1,6 @@
 package com.vipper.modelo;
 
-public class ClienteProovedor {
+public class ClienteProveedor {
 
 	private int id;
 	private String nif;
@@ -10,12 +10,12 @@ public class ClienteProovedor {
 	private String email;
 	private int telefono;
 	
-	public ClienteProovedor() {
+	public ClienteProveedor() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public ClienteProovedor(int id, String nif, String nombre, String direccion, String tipo, String email,
+	public ClienteProveedor(int id, String nif, String nombre, String direccion, String tipo, String email,
 			int telefono) {
 		super();
 		this.id = id;

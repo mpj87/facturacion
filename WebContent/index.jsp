@@ -12,5 +12,7 @@
 <a href="daralta.jsp">Dar de alta un Pedido</a>
 <br/>
 <a href="darbaja.jsp">Dar de baja un Pedido</a>
+<br/>
+<a href="mostrarunoCP.jsp">Buscar un Cliente o Proveedor</a>
 </body>
 </html>
