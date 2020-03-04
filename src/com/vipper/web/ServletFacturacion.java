@@ -177,6 +177,40 @@ public class ServletFacturacion extends HttpServlet {
 			rd.forward(r, response);
 
 			break;
+		case 8:
+			jClienteProveedor = (ClienteProveedor) r.getAttribute("p7");
+			acp1= new AccesoClienteProveedor();
+			boolean cond3=false;
+			try {
+				cond3=acp1.DarAltaClienteProveedor(jClienteProveedor);
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			miSesion = r.getSession();
+			miSesion.setAttribute("altaC", cond3);
+			
+			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
+			rd.forward(r, response);
+			
+			break;
+		case 9:
+			jClienteProveedor = (ClienteProveedor) r.getAttribute("p8");
+			acp1= new AccesoClienteProveedor();
+			boolean cond4=false;
+			try {
+				cond4=acp1.DarBajaClienteProveedor(jClienteProveedor.getId());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			miSesion = r.getSession();
+			miSesion.setAttribute("altaC", cond4);
+			
+			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
+			rd.forward(r, response);
+			break;
 		default:
 			break;
 		}

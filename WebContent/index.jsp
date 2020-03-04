@@ -20,5 +20,9 @@
 <a href="darbajaservicio.jsp">Dar de baja un Servicio</a>
 <br/>
 <a href="mostrarunoCP.jsp">Buscar un Cliente o Proveedor</a>
+<br/>
+<a href="daraltaclienteproveedor.jsp">Dar de alta un Cliente o Proveedor</a>
+<br/>
+<a href="darbajaclienteproveedor.jsp">Dar de baja un Cliente o Proveedor</a>
 </body>
 </html>

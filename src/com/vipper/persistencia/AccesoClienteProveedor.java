@@ -34,7 +34,7 @@ public class AccesoClienteProveedor extends Conexion{
 
 	}
 	
-	public boolean altaCliente(ClienteProveedor clienteProveedor) throws ClassNotFoundException, SQLException {
+	public boolean DarAltaClienteProveedor(ClienteProveedor clienteProveedor) throws ClassNotFoundException, SQLException {
 	
 		String sql = "call facturacion.altaClienteProveedor(?,?,?,?,?,?,?);";
 		CallableStatement st;
@@ -60,7 +60,7 @@ public class AccesoClienteProveedor extends Conexion{
         return numRegistros > 0;
 	}
 	
-	public boolean bajaCliente(int id) throws ClassNotFoundException, SQLException {
+	public boolean DarBajaClienteProveedor(int id) throws ClassNotFoundException, SQLException {
 		
 		String sql = "call facturacion.bajaClienteProveedor(?);";
 		CallableStatement st;
