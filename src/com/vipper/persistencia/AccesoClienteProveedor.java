@@ -36,7 +36,7 @@ public class AccesoClienteProveedor extends Conexion{
 	
 	public boolean altaCliente(ClienteProveedor clienteProveedor) throws ClassNotFoundException, SQLException {
 	
-		String sql = "call facturacion.altaClienteProveedor('?', '?', '?', '?', '?', ?);";
+		String sql = "call facturacion.altaClienteProveedor(?,?,?,?,?,?,?);";
 		CallableStatement st;
 		int numRegistros;
 		
