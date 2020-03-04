@@ -12,11 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.vipper.modelo.ClienteProveedor;
 import com.vipper.modelo.Pedido;
+import com.vipper.modelo.ServiciosProductos;
 import com.vipper.persistencia.AccesoClienteProveedor;
 import com.vipper.persistencia.AccesoPedido;
+import com.vipper.persistencia.AccesoServiciosProductos;
 
 /**
  * Servlet implementation class ServletFacturacion
@@ -38,7 +41,6 @@ public class ServletFacturacion extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		super.init(config);
 	}
 
 	/**
@@ -48,10 +50,13 @@ public class ServletFacturacion extends HttpServlet {
 	protected void service(HttpServletRequest r, HttpServletResponse response) throws ServletException, IOException {
 		int jopcion = Integer.parseInt(r.getParameter("op"));
 		AccesoPedido ap1 = null;
-		AccesoClienteProveedor acp1 = null;
+		AccesoClienteProveedor acp1=null;
+		AccesoServiciosProductos asp1=null;
 		RequestDispatcher rd = null;
 		Pedido jPedido = null;
-		ClienteProveedor jClienteProveedor = null;
+		ServiciosProductos jServicios=null;
+		ClienteProveedor jClienteProveedor=null;
+		HttpSession miSesion;
 		switch (jopcion) {
 		case 1:
 			jPedido = (Pedido) r.getAttribute("p1");
@@ -64,7 +69,7 @@ public class ServletFacturacion extends HttpServlet {
 				System.out.println(e.toString());
 			}
 			// Se guarda el producto con los datos que se obtienen
-			// de la BBDD en el �mbito request
+			// de la BBDD en el ámbito request
 			r.setAttribute("p1", jPedido);
 			rd = r.getRequestDispatcher("/mostrarpedido.jsp");
 			rd.forward(r, response);
@@ -105,7 +110,58 @@ public class ServletFacturacion extends HttpServlet {
 	
 			break;
 		case 4:
-			jClienteProveedor = (ClienteProveedor) r.getAttribute("p1");
+			jServicios = (ServiciosProductos) r.getAttribute("p2");
+			asp1= new AccesoServiciosProductos();
+			try {
+				jServicios = asp1.mostrarUnServicio(jServicios.getId_servicio());
+				System.out.println("Producto de la BBDD" + jServicios.toString());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			// Se guarda el producto con los datos que se obtienen
+			// de la BBDD en el ámbito request
+			r.setAttribute("p2", jServicios);
+			rd = r.getRequestDispatcher("/mostrarservicios.jsp");
+			rd.forward(r, response);
+
+			break;
+		case 5:
+			jServicios = (ServiciosProductos) r.getAttribute("p3");
+			asp1= new AccesoServiciosProductos();
+			boolean cond=false;
+			try {
+				cond=asp1.DarAltaServicio(jServicios.getDescripcion(), jServicios.getCoste(), jServicios.getId(), jServicios.getIva());
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			miSesion = r.getSession();
+			miSesion.setAttribute("altaC", cond);
+			
+			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
+			rd.forward(r, response);
+			
+			break;
+		case 6:
+			jServicios = (ServiciosProductos) r.getAttribute("p4");
+			asp1= new AccesoServiciosProductos();
+			boolean cond2=false;
+			try {
+				cond2=asp1.DarBajaServicio(jServicios.getId_servicio());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			miSesion = r.getSession();
+			miSesion.setAttribute("altaC", cond2);
+			
+			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
+			rd.forward(r, response);
+			break;
+		case 7:
+			jClienteProveedor = (ClienteProveedor) r.getAttribute("p6");
 			acp1 = new AccesoClienteProveedor();
 			try {
 				jClienteProveedor = acp1.mostrarUno(jClienteProveedor.getId());
@@ -116,14 +172,11 @@ public class ServletFacturacion extends HttpServlet {
 			}
 			// Se guarda el producto con los datos que se obtienen
 			// de la BBDD en el �mbito request
-			r.setAttribute("p1", jClienteProveedor);
+			r.setAttribute("p6", jClienteProveedor);
 			rd = r.getRequestDispatcher("/mostrarclienteproveedor.jsp");
 			rd.forward(r, response);
 
 			break;
-			
-		
-					
 		default:
 			break;
 		}

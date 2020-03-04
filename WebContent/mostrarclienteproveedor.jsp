@@ -7,16 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:useBean id="p1" class="com.vipper.modelo.ClienteProveedor" scope="request" />
+<jsp:useBean id="p6" class="com.vipper.modelo.ClienteProveedor" scope="request" />
 	<h1>Datos del cliente o proveedor</h1>
 	<ul>
-		<li>Id:<%=p1.getId() %></li>
-		<li>Nif:<%=p1.getNif()%></li>
-		<li>Nombre:<%=p1.getNombre()%></li>
-		<li>Direccion:<%=p1.getDireccion() %></li>
-		<li>Tipo:<%=p1.getTipo() %></li>
-		<li>Email:<%=p1.getEmail() %></li>
-		<li>Telefono:<%=p1.getTelefono() %></li>
+		<li>Id:<%=p6.getId() %></li>
+		<li>Nif:<%=p6.getNif()%></li>
+		<li>Nombre:<%=p6.getNombre()%></li>
+		<li>Direccion:<%=p6.getDireccion() %></li>
+		<li>Tipo:<%=p6.getTipo() %></li>
+		<li>Email:<%=p6.getEmail() %></li>
+		<li>Telefono:<%=p6.getTelefono() %></li>
 	</ul>
 </body>
 </html>

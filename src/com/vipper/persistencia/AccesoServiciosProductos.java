@@ -8,75 +8,63 @@ import com.vipper.modelo.ServiciosProductos;
 
 public class AccesoServiciosProductos extends Conexion {
 
-	public ServiciosProductos mostrarUno(int id) throws ClassNotFoundException, SQLException {
+	public ServiciosProductos mostrarUnServicio(int id) throws ClassNotFoundException, SQLException {
 
 		String sql = "call facturacion.mostrarUnoServiciosProductos(?);";
-
 		ServiciosProductos uno = null;
 		CallableStatement st;
 		ResultSet rs;
 
-		// abrir Conexion
 		abrirConexion();
-
-		// recoger el comando
 		st = miConexion.prepareCall(sql);
-		// Asignar valor al parametro
 		st.setInt(1, id);
-		// Ejecutamos comando
 		rs = st.executeQuery();
-		// recorremos el resulset
 		if (rs.next()) {
-			uno = new ServiciosProductos(rs.getInt("id_servicio"), rs.getString("descripcion"), rs.getDouble("coste"), rs.getInt("id"), rs.getDouble("iva"));
+			uno = new ServiciosProductos(rs.getInt("id_servicio"), rs.getString("descripcion"), rs.getDouble("coste"),
+					rs.getInt("id"), rs.getDouble("iva"));
 		}
 		cerrarConexion();
 		return uno;
-
 	}
-	
-	public boolean altaServiciosProductos(ServiciosProductos serviciosProductos) throws ClassNotFoundException, SQLException {
-		
-		String sql = "call facturacion.altaServiciosProductos(?,?,?,?,?);";
+
+	public boolean DarAltaServicio(String descripcion, double coste, int id, double iva)
+			throws ClassNotFoundException, SQLException {
+		String sql = "call facturacion.altaServiciosProductos(?,?,?,?);";
+
 		CallableStatement st;
 		int numRegistros;
-		
+
 		// abrir Conexion
 		abrirConexion();
 
 		// recoger el comando
 		st = miConexion.prepareCall(sql);
 		// Asignar valor al parametro
-		st.setInt(1,serviciosProductos.getId_servicio());
-        st.setString(2,serviciosProductos.getDescripcion());
-        st.setDouble(3,serviciosProductos.getCoste());
-        st.setInt(4,serviciosProductos.getId());
-        st.setDouble(5,serviciosProductos.getIva());
-        
-      //Ejecutar el comando
-        numRegistros = st.executeUpdate();
-        cerrarConexion();
-        return numRegistros > 0;
-        
-	}
-		
-	public boolean bajaServiciosProductos(int id) throws ClassNotFoundException, SQLException {
-		
-		String sql = "call facturacion.bajaServiciosProductos(?);";
-		CallableStatement st;
-		int numRegistros;
-		
-		// abrir Conexion
-		abrirConexion();
 
-		// recoger el comando
-		st = miConexion.prepareCall(sql);
-		// Asignar valor al parametro
-		st.setInt(1, id);
-        
-        
-		//Ejecutar el comando
+		st.setString(1, descripcion);
+		st.setDouble(2, coste);
+		st.setInt(3, id);
+		st.setDouble(4, iva);
+
+		// El execute devuelve un 0 o un 1 si devuelve el 1 es que se ha logrado
+		// realizar el alta.
+
+		numRegistros = st.executeUpdate();
+
+		// pongo directamente la condición
+
+		return numRegistros > 0;
+	}
+	public boolean DarBajaServicio (int id) throws ClassNotFoundException, SQLException {
+        String sql = "call facturacion.bajaServiciosProductos(?);";
+        CallableStatement st;
+    	int numRegistros;
+        abrirConexion();
+        st = miConexion.prepareCall(sql);
+
+        st.setInt(1, id);
+
         numRegistros = st.executeUpdate();
-        cerrarConexion();
         return numRegistros > 0;
 	}
 }

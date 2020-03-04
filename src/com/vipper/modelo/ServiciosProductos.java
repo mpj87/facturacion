@@ -27,6 +27,14 @@ public class ServiciosProductos {
 		this.iva = iva;
 	}
 
+	public ServiciosProductos(String descripcion, double coste, int id, double iva) {
+		super();
+		this.descripcion = descripcion;
+		this.coste = coste;
+		this.id = id;
+		this.iva = iva;
+	}
+
 	public int getId_servicio() {
 		return id_servicio;
 	}
