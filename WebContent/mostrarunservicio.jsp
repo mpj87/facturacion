@@ -7,13 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%if(request.getParameter("id_servicio")!=null){%>
+<%if(request.getParameter("id")!=null){%>
 <jsp:useBean id="p2" scope="request" class="com.vipper.modelo.ServiciosProductos"/>
 <jsp:setProperty name="p2" property="*"/> <!-- Se utiliza * si es global y quieres que recoja todos los datos del formulario de abajo -->
 <jsp:forward page="servletfacturacion?op=4"/>
 <% }%>
 <form action="mostrarunservicio.jsp" method="post">
-Servicio : <input type="text" name="id_servicio"/>
+Servicio : <input type="text" name="id"/>
 <input type="submit" value="Buscar servicio"/>
 </form>
 </body>

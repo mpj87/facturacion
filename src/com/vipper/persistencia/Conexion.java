@@ -12,7 +12,7 @@ public class Conexion {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        String StringConexion = "jdbc:mysql://localhost:3306/facturacion?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
 	        miConexion = DriverManager.getConnection(StringConexion, "root", "Curso2019$");
-	        System.out.println("la conexion se abrió con exito");
+	        System.out.println("la conexion se abriï¿½ con exito");
 	    }
 
 	    public void cerrarConexion() throws SQLException {

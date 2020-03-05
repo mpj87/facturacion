@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.vipper.modelo.ClienteProveedor;
+import com.vipper.modelo.Contrato;
 import com.vipper.modelo.Pedido;
 import com.vipper.modelo.ServiciosProductos;
 import com.vipper.persistencia.AccesoClienteProveedor;
+import com.vipper.persistencia.AccesoContrato;
 import com.vipper.persistencia.AccesoPedido;
 import com.vipper.persistencia.AccesoServiciosProductos;
 
@@ -52,10 +54,12 @@ public class ServletFacturacion extends HttpServlet {
 		AccesoPedido ap1 = null;
 		AccesoClienteProveedor acp1=null;
 		AccesoServiciosProductos asp1=null;
+		AccesoContrato ac1=null;
 		RequestDispatcher rd = null;
 		Pedido jPedido = null;
 		ServiciosProductos jServicios=null;
 		ClienteProveedor jClienteProveedor=null;
+		Contrato jContrato=null;
 		HttpSession miSesion;
 		switch (jopcion) {
 		case 1:
@@ -113,8 +117,8 @@ public class ServletFacturacion extends HttpServlet {
 			jServicios = (ServiciosProductos) r.getAttribute("p2");
 			asp1= new AccesoServiciosProductos();
 			try {
-				jServicios = asp1.mostrarUnServicio(jServicios.getId_servicio());
-				System.out.println("Producto de la BBDD" + jServicios.toString());
+				jServicios = asp1.mostrarUnServicio(jServicios.getId());
+				System.out.println("Servicio de la BBDD" + jServicios.toString());
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				System.out.println(e.toString());
@@ -160,6 +164,7 @@ public class ServletFacturacion extends HttpServlet {
 			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
 			rd.forward(r, response);
 			break;
+			
 		case 7:
 			jClienteProveedor = (ClienteProveedor) r.getAttribute("p6");
 			acp1 = new AccesoClienteProveedor();
@@ -175,8 +180,8 @@ public class ServletFacturacion extends HttpServlet {
 			r.setAttribute("p6", jClienteProveedor);
 			rd = r.getRequestDispatcher("/mostrarclienteproveedor.jsp");
 			rd.forward(r, response);
-
 			break;
+			
 		case 8:
 			jClienteProveedor = (ClienteProveedor) r.getAttribute("p7");
 			acp1= new AccesoClienteProveedor();
@@ -193,8 +198,8 @@ public class ServletFacturacion extends HttpServlet {
 			
 			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
 			rd.forward(r, response);
-			
 			break;
+			
 		case 9:
 			jClienteProveedor = (ClienteProveedor) r.getAttribute("p8");
 			acp1= new AccesoClienteProveedor();
@@ -207,6 +212,58 @@ public class ServletFacturacion extends HttpServlet {
 			}
 			miSesion = r.getSession();
 			miSesion.setAttribute("altaC", cond4);
+			
+			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
+			rd.forward(r, response);
+			break;
+			
+		case 10:
+			jContrato = (Contrato) r.getAttribute("p9");
+			ac1 = new AccesoContrato();
+			try {
+				jContrato = ac1.mostrarUno(jContrato.getId());
+				System.out.println("Contrato de la BBDD" + jContrato.toString());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			// Se guarda el producto con los datos que se obtienen
+			// de la BBDD en el �mbito request
+			r.setAttribute("p9", jContrato);
+			rd = r.getRequestDispatcher("/mostrarcontrato.jsp");
+			rd.forward(r, response);
+			break;
+			
+		case 11:
+			jContrato = (Contrato) r.getAttribute("p10");
+			ac1= new AccesoContrato();
+			boolean cond5=false;
+			try {
+				cond5=ac1.DarAltaContrato(jContrato);
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			miSesion = r.getSession();
+			miSesion.setAttribute("altaC", cond5);
+			
+			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
+			rd.forward(r, response);
+			break;
+			
+		case 12:
+			jContrato = (Contrato) r.getAttribute("p11");
+			ac1= new AccesoContrato();
+			boolean cond6=false;
+			try {
+				cond6=ac1.DarBajaContrato(jContrato.getId());
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+			miSesion = r.getSession();
+			miSesion.setAttribute("altaC", cond6);
 			
 			rd = r.getRequestDispatcher("/mostrarmensaje.jsp");
 			rd.forward(r, response);

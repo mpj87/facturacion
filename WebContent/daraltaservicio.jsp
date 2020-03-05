@@ -14,10 +14,15 @@
 <% }%>
 <form action="daraltaservicio.jsp" method="post">
 Descripción : <input type="text" name="descripcion"/>
+<br/> 
 Coste : <input type="text" name="coste"/>
+<br/> 
 id : <input type="text" name="id"/>
+<br/> 
 iva : <input type="text" name="iva"/>
-<input type="submit" value="Dar alta Servicio"/>
+<br/> 
+<input type="submit" value="Dar de alta Servicio"/>
+<br/> 
 </form>
 </body>
 </html>

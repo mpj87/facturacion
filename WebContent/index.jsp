@@ -24,5 +24,11 @@
 <a href="daraltaclienteproveedor.jsp">Dar de alta un Cliente o Proveedor</a>
 <br/>
 <a href="darbajaclienteproveedor.jsp">Dar de baja un Cliente o Proveedor</a>
+<br/>
+<a href="mostrarunocontrato.jsp">Buscar un Contrato</a>
+<br/>
+<a href="daraltacontrato.jsp">Dar de alta un Contrato</a>
+<br/>
+<a href="darbajacontrato.jsp">Dar de baja un Contrato</a>
 </body>
 </html>

@@ -31,7 +31,7 @@ public Contrato mostrarUno(int id_contrato) throws ClassNotFoundException, SQLEx
 		return uno;
 	}
 	
-	public boolean altaContrato(Contrato contrato) throws ClassNotFoundException, SQLException {
+	public boolean DarAltaContrato(Contrato contrato) throws ClassNotFoundException, SQLException {
 		
 		String sql = "call facturacion.altaContrato(?, ?, ?, '?');";
 		CallableStatement st;
@@ -54,7 +54,7 @@ public Contrato mostrarUno(int id_contrato) throws ClassNotFoundException, SQLEx
         return numRegistros > 0;
 	}
 	
-public boolean bajaContrato(int id_contrato) throws ClassNotFoundException, SQLException {
+public boolean DarBajaContrato(int id_contrato) throws ClassNotFoundException, SQLException {
 		
 		String sql = "call facturacion.bajaContrato(?);";
 		CallableStatement st;
